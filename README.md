@@ -59,8 +59,8 @@ elmo-hikes/
 
 
 ## Contributors
-- **Your Name** - BCIT CST Student with a passion for outdoor adventures and user-friendly applications. Fun fact: Loves solving Rubik's Cubes in under a minute.
-- **Teammate Name** - BCIT CST Student, Frontend enthusiast with a knack for creative design. Fun fact: Has a collection of over 50 houseplants.
+- **Nafiz** - BCIT CST Student with a passion for outdoor adventures, sports, motorsports, creating programs, and indulging in video games. Fun fact: I was in the top 0.1% in the leaderboards for COD Warzone in Canada. I'm also an expert at debugging and build computers.
+- **Hadrian** - BCIT CST Student, who likes racing.
 
 ---
 
