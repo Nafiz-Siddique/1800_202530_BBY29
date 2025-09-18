@@ -59,8 +59,8 @@ elmo-hikes/
 
 
 ## Contributors
+- **Hadrian** - BCIT CST Student with a passion for racing and Blender
 - **Nafiz** - BCIT CST Student with a passion for outdoor adventures, sports, motorsports, creating programs, and indulging in video games. Fun fact: I was in the top 0.1% in the leaderboards for COD Warzone in Canada. I'm also an expert at debugging and build computers.
-- **Hadrian** - BCIT CST Student, who likes racing.
 
 ---
 
