@@ -1,1 +1,12 @@
+.footer{
+    text-align: center;
+    background-color: black;
+    color: white;
+    margin-top: 48px;
+    position: fixed;
+    bottom: 0;
+}
 
+.footer-text{
+    margin-bottom: auto;
+}
