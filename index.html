@@ -1,79 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Lingualink Front Page</title>
-    <meta name="Lingualink Index" content="Lingualink" />
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <link rel="stylesheet" href="styles/indexstyle.css">
+  <script src="src/indexScript.js" defer></script>
+</head>
+<body>
 
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <button id="open-sidebar-button" onclick="openSidebar()" aria-label="open sidebar" aria-expanded="false" aria-controls="navbar">
+    <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#c9c9c9"><path d="M165.13-254.62q-10.68 0-17.9-7.26-7.23-7.26-7.23-18t7.23-17.86q7.22-7.13 17.9-7.13h629.74q10.68 0 17.9 7.26 7.23 7.26 7.23 18t-7.23 17.87q-7.22 7.12-17.9 7.12H165.13Zm0-200.25q-10.68 0-17.9-7.27-7.23-7.26-7.23-17.99 0-10.74 7.23-17.87 7.22-7.13 17.9-7.13h629.74q10.68 0 17.9 7.27 7.23 7.26 7.23 17.99 0 10.74-7.23 17.87-7.22 7.13-17.9 7.13H165.13Zm0-200.26q-10.68 0-17.9-7.26-7.23-7.26-7.23-18t7.23-17.87q7.22-7.12 17.9-7.12h629.74q10.68 0 17.9 7.26 7.23 7.26 7.23 18t-7.23 17.86q-7.22 7.13-17.9 7.13H165.13Z"/></svg>
+  </button>
 
-    <!-- Other libraries go here -->
-
-    <!-- Link to styles of your own -->
-    <link rel="stylesheet" href="./styles/style.css" />
-  </head>
-
-  <body>
-    <nav class="navbar navbar-expand-lg bg-dark-subtle">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Lingualink</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNavAltMarkup"
-          aria-controls="navbarNavAltMarkup"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
+  <nav id="navbar">
+    <ul>
+      <li>
+        <button id="close-sidebar-button" onclick="closeSidebar()" aria-label="close sidebar">
+          <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#c9c9c9"><path d="m480-444.62-209.69 209.7q-7.23 7.23-17.5 7.42-10.27.19-17.89-7.42-7.61-7.62-7.61-17.7 0-10.07 7.61-17.69L444.62-480l-209.7-209.69q-7.23-7.23-7.42-17.5-.19-10.27 7.42-17.89 7.62-7.61 17.7-7.61 10.07 0 17.69 7.61L480-515.38l209.69-209.7q7.23-7.23 17.5-7.42 10.27-.19 17.89 7.42 7.61 7.62 7.61 17.7 0 10.07-7.61 17.69L515.38-480l209.7 209.69q7.23 7.23 7.42 17.5.19 10.27-7.42 17.89-7.62 7.61-17.7 7.61-10.07 0-17.69-7.61L480-444.62Z"/></svg>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div class="navbar-nav">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-            <a class="nav-link" href="#">Features</a>
-            <a class="nav-link" href="#">Others</a>
-          </div>
-        </div>
-      </div>
-    </nav>
+      </li>
+      <li class="home-li"><a class="active-link" aria-current="page" href="index.html">Home</a></li>
+      <li><a class="accent-link" href="Login.html">Login</a></li>
+    </ul>
+  </nav>
+  
+  <div id="overlay" onclick="closeSidebar()" aria-hidden="true"></div>
 
-    <div class="px-4 py-5 my-5 text-center">
-      <h1 class="display-5 fw-bold text-body-emphasis">
-        Welcome to Lingualink
-      </h1>
-      <div class="col-lg-6 mx-auto">
-        <p class="lead mb-4">Connecting us all together</p>
-        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-          <a href="Signup.html" target="_blank"
-            ><button type="button" class="btn btn-primary btn-lg px-4 gap-3">
-              Go to signup page
-            </button></a
-          >
-          <a href="" target="_blank">
-            <button type="button" class="btn btn-outline-secondary btn-lg px-4">
-              Download App
-            </button>
-          </a>
-        </div>
-      </div>
-    </div>
-    <!--footer section-->
-    <footer class="footer">
-      <p class="footer-text">&copy; 2025 Lingualink. All rights maybe reserved.</p>
-      <!--makinf sub text smaller-->
-        <small class="footer-links">
-        <a href="#">pirvacy policy</a> | 
-        <a href="#">Terms of Service</a>
-      </small>
-    </footer>
-
-    <!---------------------------------------------->
-    <!-- Your own JavaScript functions go here    -->
-    <!---------------------------------------------->
-
-    <!-- Link to scripts of your own -->
-    <script type="module" src="src/main.js"></script>
-  </body>
+  <main id = "main-content">
+    <h1>Welcome To Lingualink, the best translator suited for your needs!</h1>
+    <p id="pls">Please signup or login to gain access to the main page!</p>
+    <h1 id="about">About Lingualink</h1>
+    <p id="description">LinguaLink is a real-time translation app that helps users communicate naturally across languages. It supports instant speech and text translation, adapts to slang and tone, and is built for travelers, gamers, and professionals who need fast, accurate translations without breaking the flow of conversation.</p>
+    <h1 id="features">Features</h1>
+    <ul id="list">
+      <li> <span style="font-weight: bold;"> Text & Voice Translation</span> — Translate in real time using speech or typing</li>
+      <li> <span style="font-weight: bold;">Slang Mode</span> — Switch to casual language translations for natural conversations</li>
+      <li> <span style="font-weight: bold;">Language Switching</span> — Swap input/output languages with one tap</li>
+      <li> <span style="font-weight: bold;">Favorites</span> — Save your most-used phrases for quick access</li>
+      <li> <span style="font-weight: bold;">Multi-Language Support</span> — Choose from multiple global languages</li>
+      <li> <span style="font-weight: bold;">Microphone Input — Speak</span> instead of typing for quick translations</li>
+      <li> <span style="font-weight: bold;">Secure Login & Signup</span> — Protect your account with Firebase authentication</li>
+      <li> <span style="font-weight: bold;">Responsive Layout</span> — Works smoothly on mobile and desktop</li>
+    </ul>
+  </main>
+  
+</body>
 </html>

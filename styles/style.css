@@ -134,22 +134,6 @@ form div.incorrect input{
     border-color: red;
    
 }
-#erroe-message{
+#error-message{
     color: red;
-}
-.footer {
-    position: absolute;
-    top: 90%;
-    left: 33%;
-    bottom: 0;
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    gap: 2px;
-    
-}
-.footer-links {
-    display: flex;
-    justify-content: center;
-   gap: 5px;
 }

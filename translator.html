@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LinguaLink Translator</title>
+
+<!-- Bootstrap CSS -->
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+/>
+
+<!-- Custom Styles -->
+<link rel="stylesheet" href="/styles/translatorStyle.css" />
+
+  <!-- Bootstrap Icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+  />
+
+  <!-- Star Icon (Favorites) -->
+    <i class="bi bi-star-fill star-icon" id="favoritesBtn" title="Go to Favorites"></i>
+
+<!-- Settings Icon -->
+    <i class="bi bi-gear-fill settings-icon" id="settingsBtn" title="Settings"></i>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="styles/translator.css" />
+</head>
+
+<body>
+  <!-- Star Icon (Favorites) -->
+  <i class="bi bi-star-fill star-icon" id="favoritesBtn" title="Go to Favorites"></i>
+
+  <div class="container">
+    <h3 class="text-center mb-4 fw-bold text-secondary"> LinguaLink Translator</h3>
+
+    <!-- From Language -->
+    <div class="mb-3">
+      <label class="form-label fw-semibold">From</label>
+      <select class="form-select" id="fromLang">
+        <option selected>English</option>
+        <option>Spanish</option>
+        <option>French</option>
+        <option>Japanese</option>
+        <option>Korean</option>
+      </select>
+    </div>
+
+    <!-- Input Text -->
+    <div class="mb-3">
+      <textarea class="form-control" id="inputText" rows="4" placeholder="Type or speak here..."></textarea>
+    </div>
+
+    <!-- Swap Button -->
+    <div class="text-center my-2">
+      <button class="btn btn-outline-secondary" id="swapBtn">⟷ Swap Languages</button>
+    </div>
+
+    <!-- To Language -->
+    <div class="mb-3">
+      <label class="form-label fw-semibold">To</label>
+      <select class="form-select" id="toLang">
+        <option>Spanish</option>
+        <option>English</option>
+        <option>French</option>
+        <option>Japanese</option>
+        <option>Korean</option>
+      </select>
+    </div>
+
+    <!-- Output -->
+    <div class="mb-3">
+      <textarea class="form-control" id="outputText" rows="4" placeholder="Translation will appear here..." disabled></textarea>
+    </div>
+
+    <!-- Buttons -->
+    <div class="d-flex justify-content-between">
+      <button class="btn btn-outline-primary" id="micBtn">🎤 Speak</button>
+      <button class="btn btn-success" id="translateBtn">Translate</button>
+    </div>
+  </div>
+
+  <!-- Firebase Auth Check -->
+  <script type="module" src="src/translatorAuth.js"></script>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
