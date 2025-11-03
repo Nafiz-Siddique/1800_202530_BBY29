@@ -14,14 +14,14 @@
 <!-- Custom Styles -->
 <link rel="stylesheet" href="/styles/translatorStyle.css" />
 
+<!--JavaScript-->
+<script type="module" src="src/translator.js"></script>
+
   <!-- Bootstrap Icons -->
   <link
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
   />
-
-  <!-- Star Icon (Favorites) -->
-    <i class="bi bi-star-fill star-icon" id="favoritesBtn" title="Go to Favorites"></i>
 
 <!-- Settings Icon -->
     <i class="bi bi-gear-fill settings-icon" id="settingsBtn" title="Settings"></i>
@@ -34,20 +34,100 @@
   <!-- Star Icon (Favorites) -->
   <i class="bi bi-star-fill star-icon" id="favoritesBtn" title="Go to Favorites"></i>
 
+  <!-- Modal -->
+<div class="modal fade" id="favoritesModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Saved Translations</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <ul class="nav nav-tabs" id="tabMenu">
+          <li class="nav-item">
+            <button class="nav-link active" id="history-tab" data-bs-toggle="tab" data-bs-target="#history" type="button">History</button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" id="favorites-tab" data-bs-toggle="tab" data-bs-target="#favorites" type="button">Favorites</button>
+          </li>
+        </ul>
+        <div class="tab-content mt-3">
+          <div class="tab-pane fade show active" id="history"></div>
+          <div class="tab-pane fade" id="favorites"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Settings Modal -->
+<div class="modal fade" id="settingsModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Settings</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Slang Mode (placeholder for now, sigh this is gna suck to try to make work) -->
+        <div class="form-check form-switch mb-3">
+          <input class="form-check-input" type="checkbox" id="slangToggle" disabled />
+          <label class="form-check-label" for="slangToggle">Slang Mode (coming soon)</label>
+        </div>
+
+        <!-- Dark Mode toggle -->
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" id="darkModeToggle" />
+          <label class="form-check-label" for="darkModeToggle">Dark Mode</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
   <div class="container">
     <h3 class="text-center mb-4 fw-bold text-secondary"> LinguaLink Translator</h3>
 
-    <!-- From Language -->
-    <div class="mb-3">
-      <label class="form-label fw-semibold">From</label>
-      <select class="form-select" id="fromLang">
-        <option selected>English</option>
-        <option>Spanish</option>
-        <option>French</option>
-        <option>Japanese</option>
-        <option>Korean</option>
-      </select>
-    </div>
+  <!-- From Language -->
+<div class="mb-3">
+  <label class="form-label fw-semibold">From</label>
+  <select class="form-select" id="fromLang">
+    <option value="en" selected>English</option>
+    <option value="es">Spanish</option>
+    <option value="fr">French</option>
+    <option value="de">German</option>
+    <option value="it">Italian</option>
+    <option value="pt">Portuguese</option>
+    <option value="nl">Dutch</option>
+    <option value="ru">Russian</option>
+    <option value="zh-CN">Chinese (Simplified)</option>
+    <option value="zh-TW">Chinese (Traditional)</option>
+    <option value="ja">Japanese</option>
+    <option value="ko">Korean</option>
+    <option value="ar">Arabic</option>
+    <option value="tr">Turkish</option>
+    <option value="pl">Polish</option>
+    <option value="sv">Swedish</option>
+    <option value="da">Danish</option>
+    <option value="fi">Finnish</option>
+    <option value="no">Norwegian</option>
+    <option value="el">Greek</option>
+    <option value="cs">Czech</option>
+    <option value="hu">Hungarian</option>
+    <option value="ro">Romanian</option>
+    <option value="bg">Bulgarian</option>
+    <option value="hi">Hindi</option>
+    <option value="id">Indonesian</option>
+    <option value="ms">Malay</option>
+    <option value="th">Thai</option>
+    <option value="vi">Vietnamese</option>
+    <option value="he">Hebrew</option>
+    <option value="uk">Ukrainian</option>
+  </select>
+</div>
+
+
 
     <!-- Input Text -->
     <div class="mb-3">
@@ -60,16 +140,44 @@
     </div>
 
     <!-- To Language -->
-    <div class="mb-3">
-      <label class="form-label fw-semibold">To</label>
-      <select class="form-select" id="toLang">
-        <option>Spanish</option>
-        <option>English</option>
-        <option>French</option>
-        <option>Japanese</option>
-        <option>Korean</option>
-      </select>
-    </div>
+<div class="mb-3">
+  <label class="form-label fw-semibold">To</label>
+  <select class="form-select" id="toLang">
+    <option value="en" selected>English</option>
+    <option value="es">Spanish</option>
+    <option value="fr">French</option>
+    <option value="de">German</option>
+    <option value="it">Italian</option>
+    <option value="pt">Portuguese</option>
+    <option value="nl">Dutch</option>
+    <option value="ru">Russian</option>
+    <option value="zh-CN">Chinese (Simplified)</option>
+    <option value="zh-TW">Chinese (Traditional)</option>
+    <option value="ja">Japanese</option>
+    <option value="ko">Korean</option>
+    <option value="ar">Arabic</option>
+    <option value="tr">Turkish</option>
+    <option value="pl">Polish</option>
+    <option value="sv">Swedish</option>
+    <option value="da">Danish</option>
+    <option value="fi">Finnish</option>
+    <option value="no">Norwegian</option>
+    <option value="el">Greek</option>
+    <option value="cs">Czech</option>
+    <option value="hu">Hungarian</option>
+    <option value="ro">Romanian</option>
+    <option value="bg">Bulgarian</option>
+    <option value="hi">Hindi</option>
+    <option value="id">Indonesian</option>
+    <option value="ms">Malay</option>
+    <option value="th">Thai</option>
+    <option value="vi">Vietnamese</option>
+    <option value="he">Hebrew</option>
+    <option value="uk">Ukrainian</option>
+  </select>
+</div>
+
+
 
     <!-- Output -->
     <div class="mb-3">
