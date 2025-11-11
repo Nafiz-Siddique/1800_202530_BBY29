@@ -23,14 +23,15 @@
     href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
   />
 
-<!-- Settings Icon -->
-    <i class="bi bi-gear-fill settings-icon" id="settingsBtn" title="Settings"></i>
+
 
   <!-- Custom Styles -->
   <link rel="stylesheet" href="styles/translator.css" />
 </head>
 
 <body>
+  <!-- Settings Icon -->
+    <i class="bi bi-gear-fill settings-icon" id="settingsBtn" title="Settings"></i>
   <!-- Star Icon (Favorites) -->
   <i class="bi bi-star-fill star-icon" id="favoritesBtn" title="Go to Favorites"></i>
 
@@ -70,9 +71,10 @@
       </div>
       <div class="modal-body">
         <!-- Slang Mode (placeholder for now, sigh this is gna suck to try to make work) -->
+         <!--i tried my best, this is killing me inside its like 2:40 and class tmr-->
         <div class="form-check form-switch mb-3">
-          <input class="form-check-input" type="checkbox" id="slangToggle" disabled />
-          <label class="form-check-label" for="slangToggle">Slang Mode (coming soon)</label>
+          <input class="form-check-input" type="checkbox" id="slangToggle" />
+          <label class="form-check-label" for="slangToggle">Slang Mode</label>
         </div>
 
         <!-- Dark Mode toggle -->
@@ -178,10 +180,12 @@
 </div>
 
 
-
+<!--i didnt comment because im lazy-->
     <!-- Output -->
     <div class="mb-3">
       <textarea class="form-control" id="outputText" rows="4" placeholder="Translation will appear here..." disabled></textarea>
+      
+      
     </div>
 
     <!-- Buttons -->

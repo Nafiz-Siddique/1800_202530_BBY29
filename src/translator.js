@@ -13,6 +13,136 @@ import {
 
 const API_URL = "https://api.mymemory.translated.net/get";
 
+//for the slangs dictionary
+//add more slang terms as needed
+const slangDictionary = {
+  "brb": "be right back",
+  "yolo": "you only live once",
+  "fam": "family",
+  "tbh": "to be honest",
+  "imo": "in my opinion",
+  "fomo": "fear of missing out",
+  "rn": "right now",
+  "yo": "hi",
+  "sassy man": "zesty guy",
+  "onika ate burgers": "nicki minaj is fat",
+  "idgaf": "I don't give a f***",
+  "water is tight": "person does not have water at all",
+  "motion": "money",
+  "bruh": "bro",
+  "gtg": "got to go",
+  "idk": "I don't know",
+  "tung tung tung sahur": "mad man",
+  "lol": "laughing out loud",
+  "smh": "shaking my head",
+  "btw": "by the way",
+  "lit": "amazing",
+  "cap": "lie",
+  "no cap": "no lie",
+  "broke boi": "poor person",
+  "clock it": "get that",
+  "no cap": "no lie",
+  "slaps": "is really good",
+  "sus": "suspicious",
+  "tea": "gossip",
+  "woke": " aware",
+  "thirsty": "desperate for attention",
+  "savage": "ruthless",
+  "lowkey": "somewhat",
+  "highkey": "definitely",
+  "clout": "influence or fame",
+  "shade": "insult",
+  "fr": "for real",
+  "bet": "okay/sure",
+  "goat": "greatest of all time",
+  "stan": "overzealous ",
+  "ship": "support",
+  "extra": "over the top",
+  "bussin": "really good",
+  "snatched": "looking good",
+  "vibe check": "How are you feeling?",
+  "cheugy": "out of date or trying too hard",
+  "mc": "main character",
+  "hits different": "better than usual",
+  "bop": "thot",
+  "canceled": "exiled",
+  "ghosted": "ignored",
+  "salty": "mad",
+  "fire": "really good",
+  "vibes": "feelings",
+  "flex": "show off",
+  "bro": "brother",
+  "diddy": "baby oil needed for the little children inb my basement",
+  "bet": "sure",
+  "flex": "show off",
+  "flexing": "showing off",
+  "dope": "cool",
+  "irl": "in real life",
+  "idrc": "I don't really care",
+  "idc": "I don't care",
+  "iykyk": "if you know you know",
+  "wyd": "what are you doing",
+  "wby" : "what about you",
+  "What's good": "Hello",
+  "Bestie": "Best friend",
+  "boutta": "about to",
+  "deadass": "seriously",
+  "cooked": "going to fail",
+  "jit": "young person",
+  "typeshit": "agree",
+  "ate": "did/looks great",
+  "finna":"going to",
+  "fire": "cool/amazing",
+  "gas": "cool/amazing",
+  "mid": "average/mediocre",
+  "rizz": "charm",
+  "mood": "relatable",
+  "snack": "attractive",
+  "whip": "car",
+  "wildin'": "crazy",
+  "fruity":"gay",
+  "drip":"stylish",
+  "dawg":"friend",
+  "on god":"I swear",
+  "hella":"very/a lot of",
+  "fit":"outfit",
+  "aura":"vibe/energy",
+  "tweaking":"overreacting",
+  "caught slippin'":"made a mistake",
+  "caught in 4k":"caught red-handed",
+  "based":"approved",
+  "big back": "fat ass",
+  "OD":"overdoing it",
+  "ops":"opponents/enemies",
+  "op":"overpowered",
+  "trenches":"the streets",
+  "mogging":"outperforming",
+  "hol up":"wait a moment",
+  "hold up":"wait a moment",
+  "chief":"leader/boss",
+  "bread":"money",
+  "sigma":"alpha",
+  "word":"agreement/acknowledgment",
+  "og":"original",
+  "fineshyt":"goodlooking",
+  "gr8":"great",
+  "str8":"straight",
+  
+
+
+
+
+
+};
+function applySlangDictionary(text) {
+  let processedText = text;
+  for (const [slang, meaning] of Object.entries(slangDictionary)) {
+    const regex = new RegExp(`\\b${slang}\\b`, "gi");
+    processedText = processedText.replace(regex, meaning);
+  }
+  return processedText;
+}
+
 const translateBtn = document.getElementById("translateBtn");
 const inputText = document.getElementById("inputText");
 const outputText = document.getElementById("outputText");
@@ -45,8 +175,12 @@ swapBtn.addEventListener("click", () => {
 let translateTimeout;
 
 // Shared translation function (used by both auto + manual)
+//UGHHH im trying to make slang mode work here help
+//english to english slang translator
+//im so done with this project
+//omg it worked i cant anymore 
 async function performTranslation() {
-  const text = inputText.value.trim();
+  let text = inputText.value.trim();
   const source = fromLang.value.toLowerCase();
   const target = toLang.value.toLowerCase();
 
@@ -54,6 +188,25 @@ async function performTranslation() {
     outputText.value = "";
     return;
   }
+   
+  const slangEnabled =
+    localStorage.getItem("slangMode") === "true" ||
+    (document.getElementById("slangToggle")?.checked ?? false);
+
+  // If slang mode is on, clean up text first
+  if (slangEnabled) {
+    text = applySlangDictionary(text);
+    console.log("💬 Slang mode ON →", text);
+  }
+
+    
+  if (source === "en" && target === "en") {
+    outputText.value = text;
+    console.log("Slang English → English detected");
+    return;
+  }
+
+
 
   outputText.value = "⏳ Translating...";
 
@@ -249,4 +402,17 @@ if (localStorage.getItem("darkMode") === "true") {
 darkModeToggle.addEventListener("change", () => {
   document.body.classList.toggle("dark-mode", darkModeToggle.checked);
   localStorage.setItem("darkMode", darkModeToggle.checked);
+});
+
+// Slang mode toggle save/load
+const slangToggle = document.getElementById("slangToggle");
+
+// Load saved slang mode setting
+if (localStorage.getItem("slangMode") === "true") {
+  slangToggle.checked = true;
+}
+
+// Save slang mode when changed
+slangToggle.addEventListener("change", () => {
+  localStorage.setItem("slangMode", slangToggle.checked);
 });
