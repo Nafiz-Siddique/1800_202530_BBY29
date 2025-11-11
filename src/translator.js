@@ -1,4 +1,7 @@
 // translator.js
+
+
+// --- FIREBASE IMPORTS ---
 import { db, auth } from "./firebase.js";
 import {
   collection,
@@ -11,12 +14,13 @@ import {
   serverTimestamp,
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-const API_URL = "https://api.mymemory.translated.net/get";
+// --- TRANSLATION API CONFIG ---
+const API_URL = "https://api.mymemory.translated.net/get"; // Free public translation API
 
-//for the slangs dictionary
-//add more slang terms as needed
+// --- SLANG DICTIONARY ---
+// Converts internet slang or abbreviations into proper English before translation
 const slangDictionary = {
-  "brb": "be right back",
+ "brb": "be right back",
   "yolo": "you only live once",
   "fam": "family",
   "tbh": "to be honest",
@@ -127,22 +131,21 @@ const slangDictionary = {
   "fineshyt":"goodlooking",
   "gr8":"great",
   "str8":"straight",
-  
-
-
-
-
-
 };
+
+
+// Replaces slang words in the input text with their proper meaning
 function applySlangDictionary(text) {
   let processedText = text;
   for (const [slang, meaning] of Object.entries(slangDictionary)) {
-    const regex = new RegExp(`\\b${slang}\\b`, "gi");
+    const regex = new RegExp(`\\b${slang}\\b`, "gi"); // match whole word, case-insensitive
     processedText = processedText.replace(regex, meaning);
   }
   return processedText;
 }
 
+// --- DOM ELEMENTS ---
+// Grabbing all key elements from the HTML
 const translateBtn = document.getElementById("translateBtn");
 const inputText = document.getElementById("inputText");
 const outputText = document.getElementById("outputText");
@@ -151,14 +154,16 @@ const toLang = document.getElementById("toLang");
 const swapBtn = document.getElementById("swapBtn");
 const micBtn = document.getElementById("micBtn");
 
-// Open Favorites/History Modal
+// --- FAVORITES / HISTORY MODAL ---
+// Opens the history modal and loads previous user translations
 document.getElementById("favoritesBtn").addEventListener("click", () => {
   const modal = new bootstrap.Modal(document.getElementById("favoritesModal"));
   modal.show();
   loadUserTranslations();
 });
 
-//Swap language dropdowns and text fields
+// --- SWAP LANGUAGES ---
+// Switches both dropdowns and their text contents
 swapBtn.addEventListener("click", () => {
   const tempLang = fromLang.value;
   fromLang.value = toLang.value;
@@ -171,14 +176,30 @@ swapBtn.addEventListener("click", () => {
   console.log(`Swapped: ${fromLang.value} ↔ ${toLang.value}`);
 });
 
-//Real-Time Translation (Automatic)
-let translateTimeout;
+// - BLOCK SWAPPING LANGUAGE WHEN SLANG IS ON
+function turnDropDownOff() {
+  document.getElementById("toLang").disabled = true;
+}
 
-// Shared translation function (used by both auto + manual)
-//UGHHH im trying to make slang mode work here help
-//english to english slang translator
-//im so done with this project
-//omg it worked i cant anymore 
+function turnDropDownOn() {
+  document.getElementById("toLang").disabled = false;
+}
+
+function blockDropDown() {
+  const checkbox = document.getElementById("slangToggle");
+  if (checkbox.checked) {
+    turnDropDownOff();
+  } else {
+    turnDropDownOn();
+  }
+}
+
+// Make it run automatically when the checkbox changes:
+document.getElementById("slangToggle").addEventListener("change", blockDropDown);
+
+
+// --- TRANSLATION FUNCTION ---
+// Core logic that handles translation, slang cleaning, and saving history
 async function performTranslation() {
   let text = inputText.value.trim();
   const source = fromLang.value.toLowerCase();
@@ -188,29 +209,29 @@ async function performTranslation() {
     outputText.value = "";
     return;
   }
-   
+
+  // Check if "Slang Mode" is on (from localStorage or settings toggle)
   const slangEnabled =
     localStorage.getItem("slangMode") === "true" ||
     (document.getElementById("slangToggle")?.checked ?? false);
 
-  // If slang mode is on, clean up text first
+  // If slang mode is enabled, translate slang to standard English first
   if (slangEnabled) {
     text = applySlangDictionary(text);
-    console.log("💬 Slang mode ON →", text);
+    console.log(" Slang mode ON →", text);
   }
 
-    
+  // If both languages are English, skip the API call
   if (source === "en" && target === "en") {
     outputText.value = text;
-    console.log("Slang English → English detected");
+    console.log("English → English detected (no translation needed)");
     return;
   }
-
-
 
   outputText.value = "⏳ Translating...";
 
   try {
+    // Call MyMemory API
     const res = await fetch(
       `${API_URL}?q=${encodeURIComponent(text)}&langpair=${source}|${target}`
     );
@@ -223,7 +244,7 @@ async function performTranslation() {
 
     outputText.value = translatedText;
 
-    // Save translation to Firestore (history)
+    // Save to Firestore if user is logged in
     if (auth.currentUser) {
       await addDoc(collection(db, "users", auth.currentUser.uid, "history"), {
         from: source,
@@ -243,16 +264,20 @@ async function performTranslation() {
   }
 }
 
-// Auto-translate as user types
+// --- AUTO-TRANSLATE ---
+// Waits 800ms after typing stops, then auto-translates
+let translateTimeout;
 inputText.addEventListener("input", () => {
   clearTimeout(translateTimeout);
   translateTimeout = setTimeout(performTranslation, 800);
 });
 
-// Manual translation button, cuz im too lazy to just delete it and ocd wants me to fill in that box
+// --- MANUAL TRANSLATE BUTTON ---
+// Just runs performTranslation() when clicked
 translateBtn.addEventListener("click", performTranslation);
 
-// Load user’s history + favorites
+// --- LOAD USER HISTORY & FAVORITES ---
+// Fetches past translations from Firestore and displays them
 async function loadUserTranslations() {
   const user = auth.currentUser;
   if (!user) return;
@@ -279,9 +304,7 @@ async function loadUserTranslations() {
           <strong>${data.input}</strong> → ${data.output}
           <small class="text-muted d-block">${data.from} → ${data.to}</small>
         </div>
-        <i class="bi ${
-          data.favorite ? "bi-star-fill text-warning" : "bi-star"
-        }"
+        <i class="bi ${data.favorite ? "bi-star-fill text-warning" : "bi-star"}"
            style="cursor:pointer;"
            onclick="toggleFavorite('${docSnap.id}', ${!data.favorite})"></i>
       </div>`;
@@ -294,7 +317,8 @@ async function loadUserTranslations() {
   favoritesDiv.innerHTML = favoritesHTML || "<p>No favorites yet.</p>";
 }
 
-// Toggle favorite (update Firestore)
+// --- TOGGLE FAVORITE ---
+// Updates Firestore when a user clicks the star icon
 window.toggleFavorite = async (id, makeFavorite) => {
   const user = auth.currentUser;
   if (!user) return;
@@ -305,22 +329,25 @@ window.toggleFavorite = async (id, makeFavorite) => {
   loadUserTranslations();
 };
 
-// Speech Recognition
+// --- SPEECH RECOGNITION ---
+// Uses the browser's built-in Web Speech API (no external library)
 const SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition;
 
 if (!SpeechRecognition) {
+  // If browser doesn’t support it, disable the mic
   console.warn("Speech recognition not supported in this browser.");
   micBtn.disabled = true;
   micBtn.textContent = "🎤 Not supported";
 } else {
+  // Create a recognition instance
   const recognition = new SpeechRecognition();
   recognition.continuous = false;
   recognition.interimResults = false;
 
-  // Map language codes to locales since myMemory api uses weird words shorthands for the language smh
+  // Map dropdown language codes to browser locales
   const langMap = {
-    en: "en-US",
+     en: "en-US",
     es: "es-ES",
     fr: "fr-FR",
     de: "de-DE",
@@ -353,6 +380,7 @@ if (!SpeechRecognition) {
     uk: "uk-UA",
   };
 
+  // Start listening when mic is clicked
   micBtn.addEventListener("click", () => {
     try {
       recognition.lang = langMap[fromLang.value] || "en-US";
@@ -364,55 +392,59 @@ if (!SpeechRecognition) {
     }
   });
 
+  // When speech is recognized, fill input and auto-translate
   recognition.addEventListener("result", (event) => {
     const transcript = event.results[0][0].transcript;
     inputText.value = transcript;
     console.log("Speech recognized:", transcript);
-    performTranslation(); // instantly translate after recognition
+    performTranslation();
   });
 
+  // When done or canceled, reset button text
   recognition.addEventListener("end", () => {
     micBtn.textContent = "🎤 Speak";
     micBtn.classList.remove("btn-danger");
   });
 
+  // Handle recognition errors
   recognition.addEventListener("error", (event) => {
     console.error("Speech recognition error:", event.error);
     micBtn.textContent = "🎤 Speak";
     micBtn.classList.remove("btn-danger");
   });
 }
-// Settings Modal Logic
+
+// --- SETTINGS MODAL ---
+// Handles dark mode and slang mode preferences
 const settingsBtn = document.getElementById("settingsBtn");
 const darkModeToggle = document.getElementById("darkModeToggle");
 
-// When the cogwheel is clicked, open settings modal
+// Open settings modal (cogwheel)
 settingsBtn.addEventListener("click", () => {
   const modal = new bootstrap.Modal(document.getElementById("settingsModal"));
   modal.show();
 });
 
-// Load dark mode preference if previously enabled
+// --- DARK MODE ---
 if (localStorage.getItem("darkMode") === "true") {
   document.body.classList.add("dark-mode");
   darkModeToggle.checked = true;
 }
 
-// Listen for dark mode toggle changes
+// When user toggles dark mode, save preference
 darkModeToggle.addEventListener("change", () => {
   document.body.classList.toggle("dark-mode", darkModeToggle.checked);
   localStorage.setItem("darkMode", darkModeToggle.checked);
 });
 
-// Slang mode toggle save/load
+// --- SLANG MODE TOGGLE ---
+// Save and load slang mode preference
 const slangToggle = document.getElementById("slangToggle");
 
-// Load saved slang mode setting
 if (localStorage.getItem("slangMode") === "true") {
   slangToggle.checked = true;
 }
 
-// Save slang mode when changed
 slangToggle.addEventListener("change", () => {
   localStorage.setItem("slangMode", slangToggle.checked);
 });
