@@ -194,6 +194,20 @@ function blockDropDown() {
   }
 }
 
+// Tooltip timer
+window.onload = function toolTipTimer(){
+
+setTimeout (() => {
+const tip1 = document.getElementById("tooltip");
+const tip2 = document.getElementById("tooltip2");
+
+tip1.style.display = 'none';
+tip2.style.display = 'none';
+
+
+
+}, 10000)
+}
 // Make it run automatically when the checkbox changes:
 document.getElementById("slangToggle").addEventListener("change", blockDropDown);
 

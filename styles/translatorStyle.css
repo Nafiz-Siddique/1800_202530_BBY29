@@ -12,6 +12,24 @@ body {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   font-family: Poppins, 'Segoe UI', sans-serif;
 }
+#tooltip {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  font-family: Poppins, 'Segoe UI', sans-serif;
+  font-size: 25px;
+  font-weight: 800;
+  
+}
+#tooltip2 {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  font-family: Poppins, 'Segoe UI', sans-serif;
+  font-size: 25px;
+  font-weight: 800;
+  
+}
 
 textarea {
   resize: none !important;

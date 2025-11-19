@@ -29,7 +29,7 @@
   <link rel="stylesheet" href="styles/translator.css" />
 </head>
 
-<body>
+<body onload="toolTipTimer()">
   <!-- Settings Icon -->
     <i class="bi bi-gear-fill settings-icon" id="settingsBtn" title="Settings"></i>
   <!-- Star Icon (Favorites) -->
@@ -194,6 +194,10 @@
       <button class="btn btn-success" id="translateBtn">Translate</button>
     </div>
   </div>
+
+  <!--Tooltip-->
+  <div id="tooltip"><p>Click the cogwheel on the top right to activate slang mode and dark mode. Slang mode translates slang into normal words, EX: fam -> family</p></div>
+  <div id="tooltip2"> <p>To see your translation history and bookmark items, click the star on the top left.</p></div>
 
   <!-- Firebase Auth Check -->
   <script type="module" src="src/translatorAuth.js"></script>
