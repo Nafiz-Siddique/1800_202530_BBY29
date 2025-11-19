@@ -176,7 +176,11 @@ swapBtn.addEventListener("click", () => {
   console.log(`Swapped: ${fromLang.value} ↔ ${toLang.value}`);
 });
 
-// - BLOCK SWAPPING LANGUAGE WHEN SLANG IS ON
+// - BLOCK SWAPPING LANGUAGE WHEN SLANG IS ON & swap to english
+function swapToEnglish(){
+  toLang.value = "en";
+}
+
 function turnDropDownOff() {
   document.getElementById("toLang").disabled = true;
 }
@@ -189,6 +193,8 @@ function blockDropDown() {
   const checkbox = document.getElementById("slangToggle");
   if (checkbox.checked) {
     turnDropDownOff();
+    swapToEnglish();
+    window.onload=turnDropDownOff;
   } else {
     turnDropDownOn();
   }
@@ -242,7 +248,7 @@ async function performTranslation() {
     return;
   }
 
-  outputText.value = "⏳ Translating...";
+  outputText.value = "Translating...";
 
   try {
     // Call MyMemory API
@@ -254,7 +260,7 @@ async function performTranslation() {
 
     const data = await res.json();
     const translatedText =
-      data.responseData.translatedText || "❌ Translation failed.";
+      data.responseData.translatedText || "Translation failed.";
 
     outputText.value = translatedText;
 
@@ -274,7 +280,7 @@ async function performTranslation() {
     }
   } catch (err) {
     console.error("Translation error:", err);
-    outputText.value = "❌ Error connecting to translation service.";
+    outputText.value = "Error connecting to translation service.";
   }
 }
 
@@ -352,7 +358,7 @@ if (!SpeechRecognition) {
   // If browser doesn’t support it, disable the mic
   console.warn("Speech recognition not supported in this browser.");
   micBtn.disabled = true;
-  micBtn.textContent = "🎤 Not supported";
+  micBtn.textContent = "Not supported";
 } else {
   // Create a recognition instance
   const recognition = new SpeechRecognition();
@@ -457,8 +463,12 @@ const slangToggle = document.getElementById("slangToggle");
 
 if (localStorage.getItem("slangMode") === "true") {
   slangToggle.checked = true;
+  turnDropDownOff();
+  swapToEnglish();
+  window.onload=turnDropDownOff;
 }
 
 slangToggle.addEventListener("change", () => {
   localStorage.setItem("slangMode", slangToggle.checked);
+
 });
