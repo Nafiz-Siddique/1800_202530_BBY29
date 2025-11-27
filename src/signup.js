@@ -12,10 +12,8 @@ const errorMsg = document.getElementById("error-message");
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  // Clear old error
   errorMsg.innerText = "";
 
-  // Validate inputs before calling Firebase
   const errors = getSignupFormErrors(
     firstnameInput.value,
     emailInput.value,
@@ -29,9 +27,14 @@ form.addEventListener("submit", async (e) => {
   }
 
   try {
+    // logs user in automatically
     await createUserWithEmailAndPassword(auth, emailInput.value, passwordInput.value);
-    alert("Signup successful! Redirecting...");
-    window.location.href = "Login.html";
+
+    alert("Signup successful! Logging you in...");
+
+    // redirects to translator page after signup
+    window.location.href = "translator.html";
+    
   } catch (err) {
     errorMsg.innerText = `Firebase: ${err.message}`;
   }

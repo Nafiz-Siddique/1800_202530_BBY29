@@ -155,6 +155,94 @@ nav a.accent-link{
         display: block;
     }
 
+@media screen and (max-width: 700px) {
+
+    #main-content {
+        text-align: center;
+        margin: 0 auto;
+        padding: 1rem;
+        width: 100%;
+    }
+
+    #main-content p,
+    #main-content ul {
+        width: 100%;
+        margin-left: 0;
+        padding: 0 1rem;
+        text-align: center;
+    }
+
+    #description,
+    #pls {
+        margin-left: 0 !important;
+        text-align: center;
+    }
+
+    #about, #features {
+        margin-top: 120px;
+    }
+
+    /* burger menu */
+    #open-sidebar-button svg,
+    #close-sidebar-button svg {
+        fill: #2f2d83 !important;  /* dark purple */
+        filter: drop-shadow(0 0 4px rgba(0,0,0,0.4));
+    }
+
+
+    nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 70%;
+        z-index: 10;
+        border-left: 1px solid var(--hover-color);
+        background-color: var(--primary-color);
+        transition: right 300ms ease-out;
+        padding-top: 3rem;
+    }
+
+    nav ul {
+        width: 100%;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    nav a {
+        width: 100%;
+        padding: 1.2rem;
+        font-size: 1.1rem;
+    }
+
+    nav.show {
+        right: 0;
+    }
+
+    nav.show ~ #overlay {
+        display: block;
+    }
+
+    #open-sidebar-button {
+        display: block;
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
+    }
+
+    #close-sidebar-button {
+        display: block;
+        margin-bottom: 2rem;
+    }
+
+    #list {
+        list-style-position: inside;
+        margin: 0 auto;
+        padding: 0 1rem;
+        text-align: left;
+    }
+
+}
 
 
 

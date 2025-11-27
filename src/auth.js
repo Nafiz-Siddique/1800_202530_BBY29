@@ -1,12 +1,12 @@
 import { auth } from "/src/firebaseConfig.js";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
-// RUN ON SIGNUP PAGE
+// For signup page, creates new firebase user
 export function signupUser(email, password) {
   return createUserWithEmailAndPassword(auth, email, password);
 }
 
-// RUN ON LOGIN PAGE
+// For login page, logs in existing firebase user
 export function loginUser(email, password) {
   return signInWithEmailAndPassword(auth, email, password);
 }
