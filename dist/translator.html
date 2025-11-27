@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LinguaLink Translator</title>
+
+<!-- Bootstrap CSS -->
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+/>
+
+<!-- Custom Styles -->
+
+<!--JavaScript-->
+
+  <!-- Bootstrap Icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+  />
+
+
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="styles/translator.css" />
+  <script type="module" crossorigin src="/assets/translator-CUcJO1Gf.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
+  <link rel="modulepreload" crossorigin href="/assets/firebase-CT_HnxDN.js">
+  <link rel="stylesheet" crossorigin href="/assets/translator-BUp1MKXi.css">
+</head>
+
+<body onload="toolTipTimer()">
+  <!-- Settings Icon -->
+    <i class="bi bi-gear-fill settings-icon" id="settingsBtn" title="Settings"></i>
+  <!-- Star Icon (Favorites) -->
+  <i class="bi bi-star-fill star-icon" id="favoritesBtn" title="Go to Favorites"></i>
+
+  <!-- Modal -->
+<div class="modal fade" id="favoritesModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Saved Translations</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <ul class="nav nav-tabs" id="tabMenu">
+          <li class="nav-item">
+            <button class="nav-link active" id="history-tab" data-bs-toggle="tab" data-bs-target="#history" type="button">History</button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" id="favorites-tab" data-bs-toggle="tab" data-bs-target="#favorites" type="button">Favorites</button>
+          </li>
+        </ul>
+        <div class="tab-content mt-3">
+          <div class="tab-pane fade show active" id="history"></div>
+          <div class="tab-pane fade" id="favorites"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Settings Modal -->
+<div class="modal fade" id="settingsModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Settings</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Slang Mode (placeholder for now, sigh this is gna suck to try to make work) -->
+         <!--i tried my best, this is killing me inside its like 2:40 and class tmr - shivika -->
+        <div class="form-check form-switch mb-3">
+          <input class="form-check-input" type="checkbox" id="slangToggle" />
+          <label class="form-check-label" for="slangToggle">Slang Mode</label>
+        </div>
+
+        <!-- Dark Mode toggle -->
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" id="darkModeToggle" />
+          <label class="form-check-label" for="darkModeToggle">Dark Mode</label>
+        </div>
+
+        <!-- Logout button-->
+         <!--idk my logout is not centered i tired everything it just doesnt work at all-->
+         <div class="logout-div" type="button">
+          <button id="logoutBtn" >LOGOUT</button>
+         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <div class="container">
+    <h3 class="text-center mb-4 fw-bold text-secondary"> LinguaLink Translator</h3>
+
+  <!-- From Language -->
+<div class="mb-3">
+  <label class="form-label fw-semibold">From</label>
+  <select class="form-select" id="fromLang">
+    <option value="en" selected>English</option>
+    <option value="es">Spanish</option>
+    <option value="fr">French</option>
+    <option value="de">German</option>
+    <option value="it">Italian</option>
+    <option value="pt">Portuguese</option>
+    <option value="nl">Dutch</option>
+    <option value="ru">Russian</option>
+    <option value="zh-CN">Chinese (Simplified)</option>
+    <option value="zh-TW">Chinese (Traditional)</option>
+    <option value="ja">Japanese</option>
+    <option value="ko">Korean</option>
+    <option value="ar">Arabic</option>
+    <option value="tr">Turkish</option>
+    <option value="pl">Polish</option>
+    <option value="sv">Swedish</option>
+    <option value="da">Danish</option>
+    <option value="fi">Finnish</option>
+    <option value="no">Norwegian</option>
+    <option value="el">Greek</option>
+    <option value="cs">Czech</option>
+    <option value="hu">Hungarian</option>
+    <option value="ro">Romanian</option>
+    <option value="bg">Bulgarian</option>
+    <option value="hi">Hindi</option>
+    <option value="id">Indonesian</option>
+    <option value="ms">Malay</option>
+    <option value="th">Thai</option>
+    <option value="vi">Vietnamese</option>
+    <option value="he">Hebrew</option>
+    <option value="uk">Ukrainian</option>
+  </select>
+</div>
+
+
+
+    <!-- Input Text -->
+    <div class="mb-3">
+      <textarea class="form-control" id="inputText" rows="4" placeholder="Type or speak here..."></textarea>
+    </div>
+
+    <!-- Swap Button -->
+    <div class="text-center my-2">
+      <button class="btn btn-outline-secondary" id="swapBtn">⟷ Swap Languages</button>
+    </div>
+
+    <!-- To Language -->
+<div class="mb-3">
+  <label class="form-label fw-semibold">To</label>
+  <select class="form-select" id="toLang">
+    <option value="en" selected>English</option>
+    <option value="es">Spanish</option>
+    <option value="fr">French</option>
+    <option value="de">German</option>
+    <option value="it">Italian</option>
+    <option value="pt">Portuguese</option>
+    <option value="nl">Dutch</option>
+    <option value="ru">Russian</option>
+    <option value="zh-CN">Chinese (Simplified)</option>
+    <option value="zh-TW">Chinese (Traditional)</option>
+    <option value="ja">Japanese</option>
+    <option value="ko">Korean</option>
+    <option value="ar">Arabic</option>
+    <option value="tr">Turkish</option>
+    <option value="pl">Polish</option>
+    <option value="sv">Swedish</option>
+    <option value="da">Danish</option>
+    <option value="fi">Finnish</option>
+    <option value="no">Norwegian</option>
+    <option value="el">Greek</option>
+    <option value="cs">Czech</option>
+    <option value="hu">Hungarian</option>
+    <option value="ro">Romanian</option>
+    <option value="bg">Bulgarian</option>
+    <option value="hi">Hindi</option>
+    <option value="id">Indonesian</option>
+    <option value="ms">Malay</option>
+    <option value="th">Thai</option>
+    <option value="vi">Vietnamese</option>
+    <option value="he">Hebrew</option>
+    <option value="uk">Ukrainian</option>
+  </select>
+</div>
+
+
+<!--i didnt comment because im lazy-->
+    <!-- Output -->
+    <div class="mb-3">
+      <textarea class="form-control" id="outputText" rows="4" placeholder="Translation will appear here..." disabled></textarea>
+      
+      
+    </div>
+
+    <!-- Buttons -->
+    <div class="d-flex justify-content-between">
+  <button class="btn btn-outline-primary" id="micBtn">🎤 Speak</button>
+  <button class="btn btn-info" id="slangDictBtn">Slang Dictionary</button>
+  <button class="btn btn-success" id="translateBtn">Translate</button>
+</div>
+
+
+  <!--Tooltip-->
+  <div id="tooltip"><p>Click the cogwheel on the top right to activate slang mode and dark mode. Slang mode translates slang into normal words, EX: fam -> family</p></div>
+  <div id="tooltip2"> <p>To see your translation history and bookmark items, click the star on the top left.</p></div>
+
+  <!-- Firebase Auth Check -->
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Slang Dictionary Modal -->
+<div class="modal fade" id="slangDictModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Slang Dictionary</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body" id="slangDictContent" 
+           style="max-height: 400px; overflow-y: auto;">
+        <!-- JS will auto-fill the definitions here -->
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
