@@ -33,6 +33,7 @@ const slangDictionary = {
   "yo": "hi",
   "sassy man": "zesty guy",
   "onika burger": "nicki minaj is fat",
+  "onika burger": "nicki minaj is fat",
   "idgaf": "I don't give a f***",
   "water is tight": "person does not have water at all",
   "motion": "money",
