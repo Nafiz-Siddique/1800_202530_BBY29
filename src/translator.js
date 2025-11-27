@@ -17,6 +17,7 @@ import {
 // --- TRANSLATION API CONFIG ---
 const API_URL = "https://api.mymemory.translated.net/get"; // Free public translation API
 
+
 // --- SLANG DICTIONARY ---
 // Converts internet slang or abbreviations into proper English before translation
 const slangDictionary = {
@@ -29,7 +30,7 @@ const slangDictionary = {
   "rn": "right now",
   "yo": "hi",
   "sassy man": "zesty guy",
-  "onika ate burgers": "nicki minaj is fat",
+  "onika burger": "nicki minaj is fat",
   "idgaf": "I don't give a f***",
   "water is tight": "person does not have water at all",
   "motion": "money",
@@ -76,7 +77,7 @@ const slangDictionary = {
   "vibes": "feelings",
   "flex": "show off",
   "bro": "brother",
-  "diddy": "baby oil needed for the little children inb my basement",
+  "diddy": "baby oil needed for the little children in my basement",
   "bet": "sure",
   "flex": "show off",
   "flexing": "showing off",
@@ -131,6 +132,11 @@ const slangDictionary = {
   "fineshyt":"goodlooking",
   "gr8":"great",
   "str8":"straight",
+  "soft launch": "subtle revel",
+  "down bad": "desperate",
+  "icymi": "in case you missed it",
+  "plot armor": "protected by luck",
+  "bricked up": "aroused (be cautious if using)",
 };
 
 

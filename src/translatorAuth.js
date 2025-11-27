@@ -1,6 +1,9 @@
 // translatorAuth.js
 import { auth } from "./firebase.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { onAuthStateChanged,
+  signOut 
+  
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
 onAuthStateChanged(auth, (user) => {
   if (!user) {
@@ -16,3 +19,22 @@ onAuthStateChanged(auth, (user) => {
     }
   }
 });
+
+//logout 
+// for the longest time i could not figure out why my logout 
+//button isnt wokring turns out because in the ID i wrote "Logoutbtn" instead of "logoutBtn"
+
+const logoutBtn = document.getElementById("logoutBtn");
+ if(logoutBtn){
+  logoutBtn.addEventListener("click", () =>{
+    signOut(auth)
+    .then(() => { 
+      console.log("user logged out")
+      window.location.herf ="login.html";
+    })
+    .catch ((error) => {
+      console.error("logout error:", error);
+    });
+  });
+
+ }
