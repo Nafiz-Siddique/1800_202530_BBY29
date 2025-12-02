@@ -1,98 +1,117 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 :root {
     --primary-color: #e2a6c3;
     --hover-color: #e0b6ce;
-    --accent-color:#2f2d83;
-    --text-color:#ffffff;
+    --accent-color: #2f2d83;
+    --text-color: #ffffff;
 }
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+
 html {
-       font-family: Poppins, 'Segoe UI', sans-serif;
-       color: var(--text-color);
+    font-family: Poppins, 'Segoe UI', sans-serif;
+    color: var(--text-color);
 }
+
 body {
     min-height: 100vh;
     max-height: 100dvh;
     background-color: var(--primary-color);
-    
 }
+
 main {
     padding: 5em, 7%;
     margin: 20px 20px;
 }
+
 #main-content {
-  text-align: center;
-}
-#main-content {
-  text-align: center;
-  max-width: 900px;     /* controls line width for readability */
-  margin: 0 auto;       /* centers the whole block */
-  padding: 2rem 1rem;   /* adds breathing room on mobile */
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
 }
 
 #main-content ul {
-  display: inline-block;
-  text-align: left;
-  margin-top: 1rem;
+    display: inline-block;
+    text-align: left;
+    margin-top: 1rem;
 }
+
 #about {
     margin-top: 200px;
 }
+
 #features {
     margin-top: 200px;
 }
+
 #list {
     margin: 10px;
 }
-#description{
+
+#description {
     margin-left: 80px;
 }
+
 #pls {
     margin-left: 80px;
 }
+
 main p {
     margin-top: .90em;
     width: 80%;
     font-size: 20px;
 }
-nav{
+
+/* NAVIGATION (DESKTOP) */
+nav {
     background-color: var(--primary-color);
     border-bottom: 1px solid var(--hover-color);
 }
+
 nav ul {
     list-style: none;
     display: flex;
-
 }
+
 nav .home-li {
     margin-right: auto;
 }
+
 nav li {
     display: flex;
 }
+
 nav a {
     display: flex;
     text-decoration: none;
     color: var(--text-color);
     padding: 1em 2em;
 }
+
 nav a:hover {
     background-color: var(--hover-color);
 }
-nav a.active-link{
+
+nav a.active-link {
     border-bottom: 2px solid var(--text-color);
 }
-nav a.accent-link{
+
+nav a.accent-link {
     background-color: var(--accent-color);
 }
-.accent-link:hover{
+
+.accent-link:hover {
     background-color: var(--hover-color);
 }
-#open-sidebar-button{
+
+/* BURGER BUTTON */
+#open-sidebar-button {
     display: none;
     background: none;
     border: none;
@@ -108,53 +127,17 @@ nav a.accent-link{
     padding: 1em;
     cursor: pointer;
 }
+
+/* Overlay */
 #overlay {
-    background-color: rgba(0,0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     position: fixed;
     inset: 0;
     z-index: 9;
     display: none;
 }
 
-@media screen and (max-width: 700px) {
-    nav{
-        position: fixed;
-        top: 0;
-        right: -100%;
-        height: 100vh;
-        width: min(15em, 100%);
-        z-index: 10;
-        border-left: 1px solid var(--hover-color);
-        transition: right 300ms ease-out;
-    }
-    nav.show{
-        right: 0;
-
-    }
-    nav.show ~ #overlay{
-        display: block;
-    }
-    nav ul {
-        width: 100%;
-        flex-direction: column;
-    }
-    nav a{
-        width: 100%;
-        padding-left: 2.5em;
-    }
-    nav a.active-link{
-        border-bottom: none;
-    }
-    nav .home-li{
-        margin-right: unset;
-    }
-    #open-sidebar-button{
-        display: block;
-    }
-    #close-sidebar-button{
-        display: block;
-    }
-
+/* mobile version below */
 @media screen and (max-width: 700px) {
 
     #main-content {
@@ -178,18 +161,19 @@ nav a.accent-link{
         text-align: center;
     }
 
-    #about, #features {
+    #about,
+    #features {
         margin-top: 120px;
     }
 
-    /* burger menu */
+    /* MOBILE BURGER ICON COLOR */
     #open-sidebar-button svg,
     #close-sidebar-button svg {
-        fill: #2f2d83 !important;  /* dark purple */
+        fill: #2f2d83 !important;
         filter: drop-shadow(0 0 4px rgba(0,0,0,0.4));
     }
 
-
+    /* MOBILE SIDEBAR NAV */
     nav {
         position: fixed;
         top: 0;
@@ -203,6 +187,14 @@ nav a.accent-link{
         padding-top: 3rem;
     }
 
+    nav.show {
+        right: 0;
+    }
+
+    nav.show ~ #overlay {
+        display: block;
+    }
+
     nav ul {
         width: 100%;
         flex-direction: column;
@@ -213,14 +205,6 @@ nav a.accent-link{
         width: 100%;
         padding: 1.2rem;
         font-size: 1.1rem;
-    }
-
-    nav.show {
-        right: 0;
-    }
-
-    nav.show ~ #overlay {
-        display: block;
     }
 
     #open-sidebar-button {
@@ -241,9 +225,4 @@ nav a.accent-link{
         padding: 0 1rem;
         text-align: left;
     }
-
-}
-
-
-
 }
